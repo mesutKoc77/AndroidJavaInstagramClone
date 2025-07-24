@@ -1,5 +1,6 @@
 package com.example.androidjavainstagramclone.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidjavainstagramclone.databinding.RecyclerRowBinding;
 import com.example.androidjavainstagramclone.model.Post;
+import com.example.androidjavainstagramclone.view.CommentsActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -33,6 +35,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
         holder.recyclerRowBinding.recyclerViewUserEmailText.setText(postArrayList.get(position).email);
         holder.recyclerRowBinding.recyclerViewCommentText.setText(postArrayList.get(position).comment);
         Picasso.get().load(postArrayList.get(position).downloadUrl).into(holder.recyclerRowBinding.recyclerViewImageView);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), CommentsActivity.class);
+                intent.putExtra("postId", postArrayList.get(position).postId);
+                v.getContext().startActivity(intent);
+            }
+        });
 
     }
 
