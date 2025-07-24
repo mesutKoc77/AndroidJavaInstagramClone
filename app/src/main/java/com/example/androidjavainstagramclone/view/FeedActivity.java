@@ -97,7 +97,7 @@ public class FeedActivity extends AppCompatActivity {
                         String  comment = (String) data.get("comment");
                         String  downloadUrl = (String) data.get("downloadurl");
 
-                        Post post=new Post(userEmail, comment, downloadUrl);
+                        Post post=new Post(userEmail, comment, downloadUrl, snapshot.getId());
                         postArrayList.add(post);
                     }
                     System.out.println("0"+postArrayList.get(0));
