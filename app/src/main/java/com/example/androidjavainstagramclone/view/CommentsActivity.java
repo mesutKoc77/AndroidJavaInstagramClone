@@ -72,6 +72,10 @@ public class CommentsActivity extends AppCompatActivity {
                             for (DocumentSnapshot doc : value.getDocuments()) {
                                 Comment comment = doc.toObject(Comment.class);
                                 if (comment != null) {
+                                    comment.commentId = doc.getId();
+                                    if (doc.get("likes") == null) {
+                                        comment.likes = 0;
+                                    }
                                     commentArrayList.add(comment);
                                 }
                             }
@@ -90,6 +94,7 @@ public class CommentsActivity extends AppCompatActivity {
         data.put("text", text);
         data.put("date", Timestamp.now());
         data.put("postId", postId);
+        data.put("likes", 0);
 
         CollectionReference ref = firebaseFirestore.collection("posts").document(postId).collection("comments");
         ref.add(data).addOnSuccessListener(new OnSuccessListener<com.google.firebase.firestore.DocumentReference>() {
