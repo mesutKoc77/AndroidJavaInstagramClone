@@ -77,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (password.equals("") || email.equals("")){
             Toast.makeText(this,"Enter E-mail and Password", Toast.LENGTH_LONG).show();
+        } else if (!isValidPassword(password)) {
+            Toast.makeText(this, "Password must be at least 10 characters long, contain at least one digit and one uppercase letter", Toast.LENGTH_LONG).show();
         } else {
             auth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                 @Override
@@ -95,6 +97,24 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private boolean isValidPassword(String password) {
+        if (password == null) return false;
+        if (password.length() < 10) return false;
+
+        boolean hasDigit = false;
+        boolean hasUpper = false;
+        for (int i = 0; i < password.length(); i++) {
+            char c = password.charAt(i);
+            if (Character.isDigit(c)) {
+                hasDigit = true;
+            }
+            if (Character.isUpperCase(c)) {
+                hasUpper = true;
+            }
+        }
+        return hasDigit && hasUpper;
     }
 
 
